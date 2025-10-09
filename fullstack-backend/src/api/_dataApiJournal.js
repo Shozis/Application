@@ -22,7 +22,7 @@ export const dataApiJournal = (app) => {
 
     //* get-запрос по id
     app.get('/api/data/:id', (req, res) => {
-        const idDataReq = req.Params.id;
+        const idDataReq = req.params.id;
         console.log('start request id' + idDataReq);
 
         const dataResponse = findId(idDataReq, data.dataMain);
@@ -67,7 +67,8 @@ export const dataApiJournal = (app) => {
         const idDataReq = req.params.id;
         const updatedData = req.body; //! Не сработает без - app.use(express.json());
 
-        let indexDataMain = findIndexId(idDataReq, data.dataMain);
+            const searchId = Number(idDataReq);
+            const indexDataMain = data.dataMain.findIndex(item => item.id === searchId);
 
         if (indexDataMain === -1) {
             console.log('No id: ' + idDataReq);

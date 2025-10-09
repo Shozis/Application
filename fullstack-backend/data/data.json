@@ -7,8 +7,8 @@
         },
         {
             "id": 2,
-            "age": "Jane",
-            "name": 42
+            "name": "Jane",
+            "age": 42
         }
     ],
     "dataD": [

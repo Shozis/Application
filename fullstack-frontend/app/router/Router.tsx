@@ -3,9 +3,9 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import MainPage from '../pages/MainPage';
-import Journal from '../pages/Journal';
-import FirstCourse from '../pages/FirstCourse';
-import CreateData from '../components/change-data/CreateData';
+import Journal from '../Journal';
+import FirstCourse from '../FirstCourse';
+import CreateData from '../CreateData';
 
 // Типы для навигации
 export type RootStackParamList = {

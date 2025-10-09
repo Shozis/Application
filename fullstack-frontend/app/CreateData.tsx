@@ -9,7 +9,7 @@ import {
     ScrollView
 } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { createData, editDataId, getDataId } from "../../api/controllers/common-controller";
+import { createData, editDataId, getDataId } from "./api/controllers/common-controller";
 
 // Типы для параметров навигации
 type RouteParams = {
@@ -34,7 +34,7 @@ const CreateData = () => {
     useEffect(() => {
         if (id && !isNaN(id)) {
             console.log('Fetching data for ID:', id);
-            setLoading(true);
+            
             getDataId(id)
                 .then((res) => {
                     console.log('Response from API:', res);
@@ -47,7 +47,6 @@ const CreateData = () => {
                     console.error('Error details:', e.response);
                     Alert.alert('Ошибка', 'Не удалось загрузить данные');
                 })
-                .finally(() => setLoading(false));
         }
     }, [id]);
 
@@ -114,7 +113,6 @@ const CreateData = () => {
                     console.error('Error response:', e.response);
                     Alert.alert('Ошибка', 'Не удалось создать данные');
                 })
-                .finally(() => setLoading(false));
         }
     };
 
@@ -170,7 +168,6 @@ const CreateData = () => {
 
             <TouchableOpacity
                 onPress={processingRequest}
-                disabled={loading}
                 style={{
                     backgroundColor: loading ? '#ccc' : '#4CAF50',
                     padding: 16,

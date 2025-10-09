@@ -20,7 +20,7 @@
     "src",
     "**/*.ts",
     "**/*.tsx"
-  ],
+, "FirstCourse.tsx"  ],
   "exclude": [
     "node_modules"
   ]

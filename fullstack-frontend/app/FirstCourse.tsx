@@ -8,8 +8,8 @@ import {
     StyleSheet
 } from "react-native";
 import { useNavigation, NavigationProp } from "@react-navigation/native";
-import { getData, deleteDataId } from "../api/controllers/common-controller";
-import { dataMain } from "../types/common.type";
+import { getData, deleteDataId } from "./api/controllers/common-controller";
+import { dataMain } from "./types/common.type";
 
 // Определяем типы для навигации
 type RootStackParamList = {
@@ -19,14 +19,12 @@ type RootStackParamList = {
 const FirstCourse = () => {
     const navigation = useNavigation<NavigationProp<RootStackParamList>>();
     const [data, setData] = useState<dataMain[]>([]);
-    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         loadData();
     }, []);
 
     const loadData = () => {
-        setLoading(true);
         getData()
             .then((response) => {
                 console.log(response);
@@ -36,7 +34,6 @@ const FirstCourse = () => {
                 console.log(e);
                 Alert.alert('Ошибка', 'Не удалось загрузить данные');
             })
-            .finally(() => setLoading(false));
     };
 
     const handleDelete = (id: number) => {
@@ -72,7 +69,7 @@ const FirstCourse = () => {
     };
 
     const handleCreate = () => {
-        navigation.navigate("CreateData");
+        const navigation = useNavigation<NavigationProp<RootStackParamList>>();
     };
 
     const renderItem = ({ item }: { item: dataMain }) => (
@@ -98,20 +95,13 @@ const FirstCourse = () => {
         </View>
     );
 
-    if (loading) {
-        return (
-            <View style={styles.loadingContainer}>
-                <Text>Загрузка...</Text>
-            </View>
-        );
-    }
 
     return (
         <View style={styles.container}>
             <FlatList
                 data={data}
                 renderItem={renderItem}
-                keyExtractor={(item) => item.id.toString()}
+                keyExtractor={(item) =>  item.id ? item?.id.toString() : ''}
                 contentContainerStyle={styles.listContainer}
                 showsVerticalScrollIndicator={false}
             />
