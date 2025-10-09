@@ -1,0 +1,28 @@
+{
+    "dataMain": [
+        {
+            "id": 1,
+            "name": "Stas",
+            "age": 31
+        },
+        {
+            "id": 2,
+            "age": "Jane",
+            "name": 42
+        }
+    ],
+    "dataD": [
+        {
+            "id": 1,
+            "name": "Rai",
+            "age": 11
+        }
+    ],
+    "dataL": [
+        {
+            "id": 1,
+            "name": "Rob",
+            "age": 22
+        }
+    ]
+}
