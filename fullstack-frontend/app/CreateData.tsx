@@ -69,7 +69,6 @@ const CreateData = () => {
 
         console.log('Sending data:', data);
 
-        setLoading(true);
 
         // Проверяем, что id существует и является числом
         if (id && !isNaN(id)) {
@@ -91,9 +90,7 @@ const CreateData = () => {
                     console.error('Error updating:', e);
                     console.error('Error response:', e.response);
                     Alert.alert('Ошибка', 'Не удалось обновить данные');
-                })
-                .finally(() => setLoading(false));
-        } else {
+                })        } else {
             // Создание новой записи
             createData(data)
                 .then(() => {

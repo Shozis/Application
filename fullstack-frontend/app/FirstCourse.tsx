@@ -5,7 +5,8 @@ import {
     TouchableOpacity,
     FlatList,
     Alert,
-    StyleSheet
+    StyleSheet,
+    ActivityIndicator
 } from "react-native";
 import { useNavigation, NavigationProp } from "@react-navigation/native";
 import { getData, deleteDataId } from "./api/controllers/common-controller";
@@ -19,12 +20,14 @@ type RootStackParamList = {
 const FirstCourse = () => {
     const navigation = useNavigation<NavigationProp<RootStackParamList>>();
     const [data, setData] = useState<dataMain[]>([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         loadData();
     }, []);
 
     const loadData = () => {
+        setLoading(true);
         getData()
             .then((response) => {
                 console.log(response);
@@ -34,42 +37,37 @@ const FirstCourse = () => {
                 console.log(e);
                 Alert.alert('Ошибка', 'Не удалось загрузить данные');
             })
+            .finally(() => setLoading(false));
     };
 
     const handleDelete = (id: number) => {
-        Alert.alert(
-            "Подтверждение удаления",
-            "Вы уверены, что хотите удалить эту запись?",
-            [
-                {
-                    text: "Отмена",
-                    style: "cancel"
-                },
-                {
-                    text: "Удалить",
-                    style: "destructive",
-                    onPress: () => {
-                        deleteDataId(id)
-                            .then(() => {
-                                Alert.alert("Успешно", "Запись удалена");
-                                loadData();
-                            })
-                            .catch((e) => {
-                                console.error(e);
-                                Alert.alert("Ошибка", "Не удалось удалить запись");
-                            });
-                    }
-                }
-            ]
-        );
+        // УБРАЛ ПОДТВЕРЖДЕНИЕ УДАЛЕНИЯ - удаляем сразу
+        deleteDataId(id)
+            .then(() => {
+                Alert.alert("Успешно", "Запись удалена");
+                loadData(); // Перезагружаем данные
+            })
+            .catch((e) => {
+                console.error(e);
+                Alert.alert("Ошибка", "Не удалось удалить запись");
+            });
     };
 
     const handleEdit = (item: dataMain) => {
-        navigation.navigate("CreateData", { id: item.id });
+        if (item.id) {
+            navigation.navigate("CreateData", { id: item.id });
+        } else {
+            Alert.alert('Ошибка', 'ID записи не найден');
+        }
     };
 
     const handleCreate = () => {
-        const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+        const newItem: dataMain = {
+            name: "",
+            age: 0,
+            id: undefined
+        };
+        navigation.navigate("CreateData", { id: newItem.id });
     };
 
     const renderItem = ({ item }: { item: dataMain }) => (
@@ -87,7 +85,13 @@ const FirstCourse = () => {
 
                 <TouchableOpacity
                     style={[styles.button, styles.deleteButton]}
-                    onPress={() => handleDelete(Number(item.id))}
+                    onPress={() => {
+                        if (item.id) {
+                            handleDelete(item.id); // Удаляем сразу без подтверждения
+                        } else {
+                            Alert.alert('Ошибка', 'ID записи не найден');
+                        }
+                    }}
                 >
                     <Text style={styles.buttonText}>Удалить</Text>
                 </TouchableOpacity>
@@ -95,15 +99,30 @@ const FirstCourse = () => {
         </View>
     );
 
+    const renderEmptyComponent = () => (
+        <View style={styles.emptyContainer}>
+            <Text style={styles.emptyText}>Нет данных</Text>
+        </View>
+    );
+
+    if (loading) {
+        return (
+            <View style={styles.loadingContainer}>
+                <ActivityIndicator size="large" color="#0000ff" />
+                <Text style={styles.loadingText}>Загрузка...</Text>
+            </View>
+        );
+    }
 
     return (
         <View style={styles.container}>
             <FlatList
                 data={data}
                 renderItem={renderItem}
-                keyExtractor={(item) =>  item.id ? item?.id.toString() : ''}
+                keyExtractor={(item) => item.id ? item.id.toString() : Math.random().toString()}
                 contentContainerStyle={styles.listContainer}
                 showsVerticalScrollIndicator={false}
+                ListEmptyComponent={renderEmptyComponent}
             />
             
             <TouchableOpacity
@@ -125,10 +144,28 @@ const styles = StyleSheet.create({
     loadingContainer: {
         flex: 1,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        backgroundColor: '#f5f5f5'
+    },
+    loadingText: {
+        marginTop: 10,
+        fontSize: 16,
+        color: '#666'
+    },
+    emptyContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 20
+    },
+    emptyText: {
+        fontSize: 16,
+        color: '#666',
+        textAlign: 'center'
     },
     listContainer: {
-        paddingBottom: 20
+        paddingBottom: 20,
+        flexGrow: 1
     },
     itemContainer: {
         borderWidth: 1,
@@ -166,8 +203,6 @@ const styles = StyleSheet.create({
     },
     deleteButton: {
         backgroundColor: '#ffc107',
-        borderWidth: 1,
-        borderColor: '#ffc107'
     },
     buttonText: {
         color: 'white',

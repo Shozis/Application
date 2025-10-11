@@ -3,4 +3,4 @@ export type dataMain = {
     name: string,
     age: number
 
-}   
+}  
