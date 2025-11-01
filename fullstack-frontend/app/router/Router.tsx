@@ -7,6 +7,7 @@ import Journal from '../Journal';
 import FirstCourse from '../FirstCourse';
 import CreateData from '../CreateData';
 import Weather from '../Weather';
+import Clicker from '../Clicker';
 
 // Типы для навигации
 export type RootStackParamList = {
@@ -14,6 +15,8 @@ export type RootStackParamList = {
   Journal: undefined;
   FirstCourse: undefined;
   CreateData: { id?: number };
+  Weather: undefined;
+  Clicker: undefined;
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -45,7 +48,12 @@ const App = () => {
           <Stack.Screen 
           name="Weather" 
           component={Weather}
-          options={{ title: 'Создание/Редактирование' }}
+          options={{ title: 'погода' }}
+        />
+          <Stack.Screen 
+          name="Clicker" 
+          component={Clicker}
+          options={{ title: 'кликер' }}
         />
       </Stack.Navigator>
     </NavigationContainer>

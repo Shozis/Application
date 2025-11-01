@@ -1,6 +1,6 @@
-export type WeatherDto ={
-    cloudcover: number,
-    conditions: string,
-    datetime: string,
-    temp: string
+export type WeatherDto = {
+    conditions: string;
+    datetime: string;
+    sunset: string;
+    temp: string;
 }

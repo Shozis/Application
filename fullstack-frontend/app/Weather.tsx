@@ -10,8 +10,7 @@ const Weather = () => {
   const contentType = 'json';
   const includeOptions = 'current,days';
 
-  const [data, setData] = useState<[]>();
-
+  const [data, setData] = useState<[]>()
 
   useEffect(() => {
     fetch(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${encodeURIComponent(location)}?unitGroup=${unitGroup}&include=${includeOptions}&contentType=${contentType}&key=${apiKey}`, {
@@ -19,9 +18,6 @@ const Weather = () => {
     })
       .then(response => response.json())
       .then(data => {
-        console.log('Weather Data:', data);
-        // Теперь здесь будут доступны все данные:
-        console.log('Current temp:', data.currentConditions.temp);
         console.log('Forecast days:', data.days);
         setData(data.days)
       })
@@ -41,20 +37,19 @@ const Weather = () => {
         data.map((item:WeatherDto, index) => (
           <View key={index} style={{padding: 20}}>
             <Text>Дата: {item.datetime}</Text>
+            <Text>Время {item.sunset} </Text>
             <Text>Температура: {item.temp}°C</Text>
             <Text>Погода: {item.conditions}</Text>
+
           </View>
         ))
         :
         null
       }
-      <TouchableOpacity>
-        {/* <Text>
-        {Data}
-        </Text> */}
-      </TouchableOpacity>
     </View>
   );
 }
+
+
 
 export default Weather;
