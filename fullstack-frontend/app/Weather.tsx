@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, TouchableOpacity } from "react-native";
-import { WeatherDto } from "./types/weather.type";
+import { View, Text, TouchableOpacity, ActivityIndicator } from "react-native";
+import { WeatherDto } from "./types/weather.type"
 
 const Weather = () => {
 
   const apiKey = 'VLPXDXGSELJA8XEY89AVRDMF5';
-  const location = 'moscow';
   const unitGroup = 'metric';
   const contentType = 'json';
   const includeOptions = 'current,days';
 
-  const [data, setData] = useState<[]>()
+  const [data, setData] = useState<[]>();
+  const [location, setLocation] = useState('moscow');
 
   useEffect(() => {
     fetch(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${encodeURIComponent(location)}?unitGroup=${unitGroup}&include=${includeOptions}&contentType=${contentType}&key=${apiKey}`, {
@@ -29,23 +29,29 @@ const Weather = () => {
           console.error('Error occurred:', errorResponse);
         }
       });
-  }, []);
-
+  }, [location]);
   return (
     <View>
+       <TouchableOpacity 
+          onPress={() => setLocation("moscow")}/>
+          <TouchableOpacity 
+          onPress={() => setLocation("podolsk")}/>
+          <TouchableOpacity 
+          onPress={() => setLocation("minsk")}/>
       {data ?
-        data.map((item:WeatherDto, index) => (
-          <View key={index} style={{padding: 20}}>
-            <Text>Дата: {item.datetime}</Text>
-            <Text>Время {item.sunset} </Text>
-            <Text>Температура: {item.temp}°C</Text>
-            <Text>Погода: {item.conditions}</Text>
-
+        data.map((item: WeatherDto, index) => (
+          
+          <View key={index} style={{ padding: 20 }}>
+            <Text> погода {item.conditions} </Text>
+            <Text> погода {item.datetime} </Text>
+            <Text> погода {item.sunset} </Text>
+            <Text> погода {item.temp} </Text>
           </View>
         ))
         :
-        null
+        <ActivityIndicator size="large" color="#0000ff" />
       }
+
     </View>
   );
 }
