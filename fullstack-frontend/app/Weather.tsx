@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, TouchableOpacity, ActivityIndicator } from "react-native";
+import { View, Text, TouchableOpacity, ActivityIndicator, Button } from "react-native";
 import { WeatherDto } from "./types/weather.type"
 
 const Weather = () => {
@@ -32,20 +32,18 @@ const Weather = () => {
   }, [location]);
   return (
     <View>
-       <TouchableOpacity 
-          onPress={() => setLocation("moscow")}/>
-          <TouchableOpacity 
-          onPress={() => setLocation("podolsk")}/>
-          <TouchableOpacity 
-          onPress={() => setLocation("minsk")}/>
+      <Button title="moskow" onPress={() => setLocation("moscow")}/>
+      <Button title="podolsk" onPress={() => setLocation("podolsk")}/>
+      <Button title="minsk" onPress={() => setLocation("minsk")}/> 
+
       {data ?
         data.map((item: WeatherDto, index) => (
           
           <View key={index} style={{ padding: 20 }}>
             <Text> погода {item.conditions} </Text>
-            <Text> погода {item.datetime} </Text>
-            <Text> погода {item.sunset} </Text>
-            <Text> погода {item.temp} </Text>
+            <Text> дата {item.datetime} </Text>
+            <Text> время {item.sunset} </Text>
+            <Text> тумпература {item.temp} </Text>
           </View>
         ))
         :
