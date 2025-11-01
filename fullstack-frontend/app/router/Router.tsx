@@ -1,11 +1,12 @@
 // App.tsx
-import React from 'react';
+import React from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import MainPage from '../pages/MainPage';
 import Journal from '../Journal';
 import FirstCourse from '../FirstCourse';
 import CreateData from '../CreateData';
+import Weather from '../Weather';
 
 // Типы для навигации
 export type RootStackParamList = {
@@ -39,6 +40,11 @@ const App = () => {
         <Stack.Screen 
           name="CreateData" 
           component={CreateData}
+          options={{ title: 'Создание/Редактирование' }}
+        />
+          <Stack.Screen 
+          name="Weather" 
+          component={Weather}
           options={{ title: 'Создание/Редактирование' }}
         />
       </Stack.Navigator>
