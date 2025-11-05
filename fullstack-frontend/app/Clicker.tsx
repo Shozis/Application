@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { View, Text, Button } from "react-native";
+import { View, Text, Button, Image } from "react-native";
 
 
 
@@ -9,9 +9,20 @@ const Clicker = () => {
 
     const txt = "that text will done if you will click more times";
 
-    const dotsCount = data > txt.length ? data - txt.length: 0;
+    const dotsCount = data > txt.length ? data - txt.length : 0;
     const breakTxt = txt.substring(0, data) + (".".repeat(dotsCount));
 
+
+    const name = () => {
+        switch (data) {
+            case 5:
+                return 5;
+            case 3:
+                return 3;
+            default:
+                return 0;
+        }
+    }
 
     return (
         <View>
@@ -19,21 +30,33 @@ const Clicker = () => {
             <Text>
                 нажато: {data} раз
             </Text>
-                        <View style={{
-                    flexDirection: "row",
-                }}>
-                    {breakTxt.split(' ').map((word,index) => (
-                        <Text 
-                            key={index}
-                            style={{
-                                marginRight: 8,
-                            }}
-                        >
-                            {word}
-                        </Text>
-                        
-                    ))}
-                </View>
+            <View style={{
+                flexDirection: "row",
+            }}>
+                {breakTxt.split(' ').map((word, index) => (
+                    <Text
+                        key={index}
+                        style={{
+                            marginRight: 8,
+                        }}
+                    >
+                        {word}
+                    </Text>
+
+                ))}
+
+                {data === txt.length ?
+                    <Image
+                        source={require('../assets/images/cat.jpg')}
+                        style={{ width: 200, height: 200 }}
+                    />
+                    :
+                    null
+
+
+                }
+
+            </View>
 
         </View>
     )
