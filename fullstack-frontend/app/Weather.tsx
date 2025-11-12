@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, TouchableOpacity, ActivityIndicator, Button, Image } from "react-native";
 import { WeatherDto } from "./types/weather.type"
+import { Colors } from "react-native/Libraries/NewAppScreen";
 
 const Weather = () => {
 
@@ -36,7 +37,18 @@ const Weather = () => {
         source={require('../assets/images/Overcast.png')}
         style={{ width: 50, height: 50 }}
       />;
+      case "Rain, Partially cloudy":
+        return <Image
+        source={require('../assets/images/RainPartiallyCloudy.svg')}
+        style={{ width: 50, height: 50 }}
+      />;
+      case "Rain, Overcast":
+        return <Image
+        source={require('../assets/images/RainOvercast.svg')}
+        style={{ width: 50, height: 50 }}
+      />;
       }
+      
   }
 
   useEffect(() => {
@@ -63,7 +75,7 @@ const Weather = () => {
         display: "flex",
       }}
     >
-      <View
+      <View  
         style={{
           display: "flex",
           margin: 50,
@@ -75,19 +87,22 @@ const Weather = () => {
         <Button title="minsk" onPress={() => setLocation("minsk")} />
       </View>
       <View style={{
+        flexWrap:"wrap",
         flexDirection: "row",
-        justifyContent: "space-between",
+        justifyContent: "center",
       }}>
         {data ?
           data.map((item: WeatherDto, index) => (
 
             <View key={index} style={{
-              padding: 20
+              padding: 20,
             }}>
-              <Text> погода {weatherIcons(item.conditions)} </Text>
-              <Text> дата {(getDayOfWeek(new Date(item.datetime)))} </Text>
+              <Text> {weatherIcons(item.conditions)} </Text>
+              <Text style={{
+                fontWeight: "bold"
+              }}> {(getDayOfWeek(new Date(item.datetime)))} </Text>
               <Text> время {item.sunset} </Text>
-              <Text> тумпература {item.temp} </Text>
+              <Text style={{color: "blue",fontWeight: "bold", fontSize: 20 }}> {item.temp} °C </Text>
             </View>
           ))
           :
