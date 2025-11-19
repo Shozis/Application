@@ -20,6 +20,10 @@ const Journal = () => {
             >
                 <Text style={styles.buttonText}>1 курс</Text>
             </TouchableOpacity>
+            <TouchableOpacity style={styles.button}
+                onPress={() => navigation.navigate('FirstCourse')}>
+                    <Text style={styles.buttonText}>курс дизайна</Text>
+        </TouchableOpacity>
         </View>
     );
 }
