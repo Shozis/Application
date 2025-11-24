@@ -3,7 +3,7 @@ import { useNavigation } from "expo-router";
 import { useEffect, useState } from "react";
 import { Alert, View } from "react-native";
 import { dataD } from "./types/course.type";
-import { getData } from "./api/controllers/course-controller";
+import { getCourse } from "./api/controllers/course-controller";
 
 
 type RootStackParamList = {
@@ -17,7 +17,7 @@ const DesignCourse = () => {
 
     useEffect (() => {
     setLoading(true);
-    getData()
+    getCourse()
         .then((response) => {
             console.log(response);
             setData(response.data);

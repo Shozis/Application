@@ -21,7 +21,7 @@ const Journal = () => {
                 <Text style={styles.buttonText}>1 курс</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.button}
-                onPress={() => navigation.navigate('FirstCourse')}>
+                onPress={() => navigation.navigate("DesignCourse")}>
                     <Text style={styles.buttonText}>курс дизайна</Text>
         </TouchableOpacity>
         </View>

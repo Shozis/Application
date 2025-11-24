@@ -9,6 +9,7 @@ import CreateData from '../CreateData';
 import Weather from '../Weather';
 import Clicker from '../Clicker';
 import Checkers from '../Сheckers';
+import DesignCourse from '../DesignCourse';
 
 // Типы для навигации
 export type RootStackParamList = {
@@ -19,6 +20,7 @@ export type RootStackParamList = {
   Weather: undefined;
   Clicker: undefined;
   Checkers: undefined;
+  DesignCourse: undefined;
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -54,6 +56,10 @@ const App = () => (
         name="Checkers"
         component={Checkers}
         options={{ title: 'шашки' }} />
+              <Stack.Screen
+        name="DesignCourse"
+        component={DesignCourse}
+        options={{ title: 'курсы дизайнеров' }} />
     </Stack.Navigator>
   </NavigationContainer>
 );
