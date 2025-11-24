@@ -5,8 +5,7 @@ import { useNavigation, NavigationProp } from "@react-navigation/native";
 // Определяем типы для навигации
 type RootStackParamList = {
     FirstCourse: undefined;
-    Journal: undefined;
-    CreateData: { id?: number };
+    DesignCourse: undefined;
 };
 
 const Journal = () => {
@@ -59,3 +58,4 @@ const styles = StyleSheet.create({
 });
 
 export default Journal;
+
