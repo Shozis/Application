@@ -4,6 +4,7 @@ const require = createRequire(import.meta.url);
 const express = require("express");
 
 import { dataApiJournal } from "./src/api/_dataApiJournal.js";
+import { dataCourse } from "./src/api/_dataCourse.js";
 
 
 // назначение порта для сервера (нельзя использовать 3000 порт, так как он используется для frontend)
@@ -14,6 +15,7 @@ const app = express();
 app.use(express.json());
 
 dataApiJournal(app);
+dataCourse(app);
 
 // слушатель app-приложения сервера
 app.listen(PORT, () => {

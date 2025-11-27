@@ -11,33 +11,21 @@ type RootStackParamList = {
 };
 
 const DesignCourse = () => {
-    const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+    // const navigation = useNavigation<NavigationProp<RootStackParamList>>();
     const [data, setData] = useState<dataD[]>([]);
-    const [loading, setLoading] = useState(true);
+    // const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        setLoading(true);
-        getCourse()
-            .then((response) => {
-                console.log(response);
-                setData(response.data);
-            })
-            .catch((e) => {
-                console.log(e);
-                Alert.alert('Ошибка', 'Не удалось загрузить данные');
-            })
-            .finally(() => setLoading(false));
+        loadDesign();
     }, []);
 
-    const asdasdaw = () => {
-        getCourseId(1)
+
+    const loadDesign = () => {
+        getCourse()
         .then((response) => {
+            console.log(response);
             setData(response.data)
         })
-        .catch((e) => {
-            console.log(e);
-        })
-
     }
 
     const qwer = () => {
@@ -51,7 +39,6 @@ const DesignCourse = () => {
 
     return (
         <View>
-            <Button title="click" onPress={asdasdaw}/>
             <Button title="click" onPress={qwer}/>
         </View>
     )
