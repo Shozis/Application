@@ -1,17 +1,18 @@
 import { NavigationProp } from "@react-navigation/native";
 import { useNavigation } from "expo-router";
 import { useEffect, useState } from "react";
-import { Alert, Button, View } from "react-native";
+import { Alert, Button, FlatList, View, Text, TouchableOpacity } from "react-native";
 import { dataD } from "./types/course.type";
 import { createCourse, getCourse, getCourseId } from "./api/controllers/course-controller";
+import { navigate } from "expo-router/build/global-state/routing";
 
 
 type RootStackParamList = {
-    CreateData: { id?: number };
+    CreateCourse: { id?: number };
 };
 
 const DesignCourse = () => {
-    // const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+    const navigation = useNavigation<NavigationProp<RootStackParamList>>();
     const [data, setData] = useState<dataD[]>([]);
     // const [loading, setLoading] = useState(true);
 
@@ -22,24 +23,44 @@ const DesignCourse = () => {
 
     const loadDesign = () => {
         getCourse()
-        .then((response) => {
-            console.log(response);
-            setData(response.data)
-        })
+            .then((response) => {
+                console.log(response);
+                setData(response.data)
+            })
     }
 
-    const qwer = () => {
-        const data = {
-            name: "n",
-            age: 4
+    const handleEdit = (item: dataD) => {
+        if (item.id) {
+            navigation.navigate("CreateData", { id: item.id });
+        } else {
+            console.log("ошибка, ID не найдены")
         }
-
-        createCourse(data)
     }
+
+    const renderItem = ({ item }: { item: dataD }) => (
+        <View>
+            <View>
+                <Text>имя: {item.name}</Text>
+                <Text>Возраст: {item.age}</Text>
+
+                <TouchableOpacity
+                    onPress={() => handleEdit(item)}
+                >
+                    <Text>Изменить</Text>
+                </TouchableOpacity>
+            </View>
+        </View>
+    )
+
+
 
     return (
         <View>
-            <Button title="click" onPress={qwer}/>
+            <FlatList
+                data={data}
+                renderItem={renderItem}
+                keyExtractor={(item) => item.id ? item.id.toString() : Math.random.toString()}
+            />
         </View>
     )
 }
