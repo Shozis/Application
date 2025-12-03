@@ -17,6 +17,8 @@ export const dataCourse = (app) => {
 
         for (let i = 0; data.dataD.length > i; i++) {
             if (data.dataD[i].id === idReq) {
+                console.log('find ' + idReq);
+
                 return res.json(data.dataD[i]);
             }
         }

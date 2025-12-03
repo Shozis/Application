@@ -31,7 +31,7 @@ const DesignCourse = () => {
 
     const handleEdit = (item: dataD) => {
         if (item.id) {
-            navigation.navigate("CreateData", { id: item.id });
+            navigation.navigate("CreateCourse", { id: item.id });
         } else {
             console.log("ошибка, ID не найдены")
         }
