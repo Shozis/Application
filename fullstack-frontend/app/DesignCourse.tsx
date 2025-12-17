@@ -14,7 +14,15 @@ type RootStackParamList = {
 const DesignCourse = () => {
     const navigation = useNavigation<NavigationProp<RootStackParamList>>();
     const [data, setData] = useState<dataD[]>([]);
-    // const [loading, setLoading] = useState(true);
+
+    const handleCreate = () => {
+        const newItem: dataD = {
+            name: "",
+            age: 0,
+            id: undefined
+        };
+        navigation.navigate("CreateCourse", { id: newItem.id });
+    };
 
     useEffect(() => {
         loadDesign();
@@ -61,6 +69,12 @@ const DesignCourse = () => {
                 renderItem={renderItem}
                 keyExtractor={(item) => item.id ? item.id.toString() : Math.random.toString()}
             />
+
+            <TouchableOpacity
+                onPress={handleCreate}
+            >
+                <Text>+</Text>
+            </TouchableOpacity>
         </View>
     )
 }

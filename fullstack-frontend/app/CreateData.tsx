@@ -19,7 +19,7 @@ type RouteParams = {
 const CreateData = () => {
     const navigation = useNavigation();
     const route = useRoute();
-    
+
     // Получаем ID из параметров маршрута и преобразуем в число
     const params = route.params as RouteParams;
     const id = params?.id ? Number(params.id) : undefined;
@@ -34,7 +34,7 @@ const CreateData = () => {
     useEffect(() => {
         if (id && !isNaN(id)) {
             console.log('Fetching data for ID:', id);
-            
+
             getDataId(id)
                 .then((res) => {
                     console.log('Response from API:', res);
@@ -90,7 +90,8 @@ const CreateData = () => {
                     console.error('Error updating:', e);
                     console.error('Error response:', e.response);
                     Alert.alert('Ошибка', 'Не удалось обновить данные');
-                })        } else {
+                })
+        } else {
             // Создание новой записи
             createData(data)
                 .then(() => {
