@@ -3,7 +3,7 @@ import { useNavigation } from "expo-router";
 import { useEffect, useState } from "react";
 import { Alert, Button, FlatList, View, Text, TouchableOpacity } from "react-native";
 import { dataD } from "./types/course.type";
-import { createCourse, getCourse, getCourseId } from "./api/controllers/course-controller";
+import { createCourse, deleteCourseId, getCourse, getCourseId } from "./api/controllers/course-controller";
 import { navigate } from "expo-router/build/global-state/routing";
 
 
@@ -35,7 +35,7 @@ const DesignCourse = () => {
                 console.log(response);
                 setData(response.data)
             })
-    }
+    };
 
     const handleEdit = (item: dataD) => {
         if (item.id) {
@@ -43,6 +43,13 @@ const DesignCourse = () => {
         } else {
             console.log("ошибка, ID не найдены")
         }
+    };
+
+    const handleDelete = (id: number) => {
+        deleteCourseId(id)
+        .then((e) => {
+            Alert.alert("sucsess", "")
+        })
     }
 
     const renderItem = ({ item }: { item: dataD }) => (
@@ -56,6 +63,7 @@ const DesignCourse = () => {
                 >
                     <Text>Изменить</Text>
                 </TouchableOpacity>
+
             </View>
         </View>
     )
