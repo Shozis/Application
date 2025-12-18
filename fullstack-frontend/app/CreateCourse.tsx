@@ -76,6 +76,8 @@ const CreatrCourse = () => {
                             }
                         ]
                     );
+
+                    // navigate(-1)
                 })
                 .catch((e) => {
                     console.error('Error updating:', e);

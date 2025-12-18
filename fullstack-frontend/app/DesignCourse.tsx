@@ -15,6 +15,8 @@ const DesignCourse = () => {
     const navigation = useNavigation<NavigationProp<RootStackParamList>>();
     const [data, setData] = useState<dataD[]>([]);
 
+
+
     const handleCreate = () => {
         const newItem: dataD = {
             name: "",
@@ -33,7 +35,11 @@ const DesignCourse = () => {
         getCourse()
             .then((response) => {
                 console.log(response);
-                setData(response.data)
+                setData(response.data);
+            })
+            .catch((e) => {
+                console.log(e);
+                Alert.alert('error', 'Failed to load data')
             })
     };
 
@@ -47,9 +53,14 @@ const DesignCourse = () => {
 
     const handleDelete = (id: number) => {
         deleteCourseId(id)
-        .then((e) => {
-            Alert.alert("sucsess", "")
-        })
+            .then((e) => {
+                Alert.alert("sucsess", "record deleted");
+                loadDesign();
+            })
+            .catch((e) => {
+                console.error(e);
+                Alert.alert("error", "Failed to delete recode");
+            });
     }
 
     const renderItem = ({ item }: { item: dataD }) => (
@@ -61,6 +72,18 @@ const DesignCourse = () => {
                 <TouchableOpacity
                     onPress={() => handleEdit(item)}
                 >
+                    <TouchableOpacity
+                        onPress={() => {
+                            if (item.id) {
+                                handleDelete(item.id); // Удаляем сразу без подтверждения
+                            } else {
+                                Alert.alert('Ошибка', 'ID записи не найден');
+                            }
+                        }}
+                    >
+                        <Text>Удалить</Text>
+                    </TouchableOpacity>
+
                     <Text>Изменить</Text>
                 </TouchableOpacity>
 
@@ -71,8 +94,11 @@ const DesignCourse = () => {
 
 
     return (
-        <View>
-            <FlatList
+        <View  style={{
+                display:"flex",
+                width: 100,
+            }}>
+            <FlatList 
                 data={data}
                 renderItem={renderItem}
                 keyExtractor={(item) => item.id ? item.id.toString() : Math.random.toString()}
