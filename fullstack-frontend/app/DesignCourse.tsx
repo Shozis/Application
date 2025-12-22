@@ -64,15 +64,23 @@ const DesignCourse = () => {
     }
 
     const renderItem = ({ item }: { item: dataD }) => (
-        <View>
-            <View>
+        <View style={{
+            display: "flex",
+        }}>
+            <View style={{
+                borderWidth: 2,
+            }}>
                 <Text>имя: {item.name}</Text>
                 <Text>Возраст: {item.age}</Text>
 
-                <TouchableOpacity
+                <TouchableOpacity style={{
+                    backgroundColor: "#C4F66F",
+                }}
                     onPress={() => handleEdit(item)}
                 >
-                    <TouchableOpacity
+                    <TouchableOpacity style={{
+                        backgroundColor: "#FF7373",
+                    }}
                         onPress={() => {
                             if (item.id) {
                                 handleDelete(item.id); // Удаляем сразу без подтверждения
@@ -81,10 +89,10 @@ const DesignCourse = () => {
                             }
                         }}
                     >
-                        <Text>Удалить</Text>
+                        <Text style={{opacity: 1}}>Удалить</Text>
                     </TouchableOpacity>
 
-                    <Text>Изменить</Text>
+                    <Text style={{opacity: 1}}>Изменить</Text>
                 </TouchableOpacity>
 
             </View>
@@ -96,6 +104,7 @@ const DesignCourse = () => {
     return (
         <View  style={{
                 display:"flex",
+                flexDirection: "row",
                 width: 100,
             }}>
             <FlatList 
