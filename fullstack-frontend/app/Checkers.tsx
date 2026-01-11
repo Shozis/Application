@@ -1,12 +1,14 @@
 import { View, Text, Button, Image } from "react-native";
+import Cells from "./components/Сells";
 
 const Checkers = () => {
+
         return (
             <View>
-                ass
+                <Cells/>
             </View>
         )
 }
 
 
-export default Checkers;
+export default Checkers ;

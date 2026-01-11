@@ -1,15 +1,34 @@
-import { View } from "react-native"
+import { View, TouchableOpacity } from "react-native"
 
+const Cells = () => {
 
-interface CellsProps{
+    const arr = [];
 
-}
+    for (let i = 1; i <= 63 ; i++) {
+        arr[i] = i
+    }
+    return <View style={{
+        width: 400,
+        display: "flex",
+            flexDirection: "row",
+            flexWrap: "wrap"
+    }}>
+        {arr.map((arr, item) => (
+            <View
+            style={{
+        justifyContent: "flex-end",
+        width:20,
+        padding: 20,
+        borderWidth: 1, 
+        backgroundColor: item % 2 !== 0 ? "black" : "white",
+        color: item % 2 !== 0 ? "white" : "black",
+    }}
 
-const Cells = (props: CellsProps) => {
-    return <View style={{margin: "10px"}}>
-
+            >
+                {arr}
+            </View>
+        ))}
     </View>
 }
-
 
 export default Cells;

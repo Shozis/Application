@@ -8,7 +8,7 @@ import FirstCourse from '../FirstCourse';
 import CreateData from '../CreateData';
 import Weather from '../Weather';
 import Clicker from '../Clicker';
-import Checkers from '../Сheckers';
+import Checkers from '../Checkers';
 import DesignCourse from '../DesignCourse';
 
 // Типы для навигации
