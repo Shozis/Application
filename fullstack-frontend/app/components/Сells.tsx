@@ -2,29 +2,53 @@ import { View, TouchableOpacity } from "react-native"
 
 const Cells = () => {
 
-    const arr = [];
+const fieldsCells = () => {
+    let cells = [];
 
-    for (let i = 1; i <= 64 ; i++) {
-        arr[i] = i
+    for (let i = 0; i < 8; i++) {
+        if (i % 2 === 0) {
+            cells.push(['white', 'grey', 'white', 'grey', 'white', 'grey', 'white', 'grey']);
+        } else {
+            cells.push(['grey', 'white', 'grey', 'white', 'grey', 'white', 'grey', 'white']);
+        }
     }
-    return <View style={{
-        width: 400,
-        display: "flex",
-            flexDirection: "row",
-            flexWrap: "wrap"
-    }}>
-        {arr.map((arr, item) => (
-            <View
-            style={{
-        width: 50,
-        padding: 20,
-        borderWidth: 1, 
-        backgroundColor: item % 2 !== 0 ? "black" : "white",
-        color: item % 2 !== 0 ? "white" : "black",
-    }}
 
+    return cells;
+};
+
+    return <View style={{
+            width: 561,
+            height: 561.5,
+            borderRadius: 0.5,
+            margin: 0,
+            marginHorizontal: 'auto',
+            position: 'relative',
+            backgroundColor: '#fff',
+            flexDirection: 'column'
+        }}
+    >
+        {fieldsCells().map((row, rowIndex) => (
+            <View
+                key={`row-${rowIndex}`}
+                style={{
+                    display: "flex",
+                    flexDirection: 'row'
+                }}
             >
-                {arr}
+                {row.map((col, colIndex) => (
+                    <View
+                        key={`cell-${rowIndex}-${colIndex}`}
+                        style={{
+                            width: 70,
+                            height: 70,
+                            backgroundColor: col === 'grey' ? '#808080' : '#fff',
+                            borderRadius: '0.5px solid #ccc',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center'
+                        }}
+                    />
+                ))}
             </View>
         ))}
     </View>
