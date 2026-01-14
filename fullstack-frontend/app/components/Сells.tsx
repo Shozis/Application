@@ -4,7 +4,7 @@ const Cells = () => {
 
     const arr = [];
 
-    for (let i = 1; i <= 63 ; i++) {
+    for (let i = 1; i <= 64 ; i++) {
         arr[i] = i
     }
     return <View style={{
@@ -16,8 +16,7 @@ const Cells = () => {
         {arr.map((arr, item) => (
             <View
             style={{
-        justifyContent: "flex-end",
-        width:20,
+        width: 50,
         padding: 20,
         borderWidth: 1, 
         backgroundColor: item % 2 !== 0 ? "black" : "white",
