@@ -1,5 +1,5 @@
 import { $api, config } from "../index";
 
-export const createData = (body: ) => {
-    return $api.post(`/api/data/`, body, { headers: config() });
+export const createData = (body: string) => {
+    return $api.post(`/api/coder/`, body, { headers: config() });
 }
